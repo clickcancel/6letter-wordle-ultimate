@@ -1,10 +1,18 @@
 console.log("6 Letter Wordle Ultimate started!");
 
 const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
-const answer = WORD_LIST[randomIndex];
+let answer = WORD_LIST[randomIndex];
 let currentTile = 0;
 let currentRow = 0;
+let gameOver = false;
 document.addEventListener("keydown", function(event){
+
+if (gameOver) {
+    if (event.key === "Enter") {
+        startNewGame();
+    }
+    return;
+}
     if (event.key.length === 1 && currentTile < 6) {
 
     const tileNumber = currentRow * 6 + currentTile;
@@ -13,6 +21,7 @@ document.addEventListener("keydown", function(event){
     tile.textContent = event.key.toUpperCase();
 
     currentTile++;
+
 }
 
      if (event.key === "Backspace") {
@@ -35,8 +44,16 @@ document.addEventListener("keydown", function(event){
     }
 
             if (!WORD_LIST.includes(guess)) {
-            alert("Not in word list!");
-            return;
+            const message = document.getElementById("message");
+
+             message.textContent = "Not found in word list";
+            message.classList.add("show");
+
+            setTimeout(() => {
+            message.classList.remove("show");
+    }, 1500);
+
+    return;
 }
 
     let remaining = answer.split("");
@@ -109,7 +126,10 @@ for (let i = 0; i < 6; i++) {
 
 if (correctLetters === 6) {
 
-    alert("You Win!");
+    gameOver = true;
+
+    const winPopup = document.getElementById("winPopup");
+    winPopup.classList.add("show");
 
 } else {
 
@@ -123,3 +143,45 @@ if (correctLetters === 6) {
 }   // end Enter
 
 }); // end document listener
+
+function startNewGame() {
+
+    // Choose a new answer
+    const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
+    answer = WORD_LIST[randomIndex];
+
+    // Reset game position
+    currentTile = 0;
+    currentRow = 0;
+    gameOver = false;
+
+    // Clear all tiles
+    for (let i = 0; i < 36; i++) {
+        const tile = document.getElementById("tile" + i);
+
+        tile.textContent = "";
+        tile.style.backgroundColor = "";
+    }
+
+    // Reset keyboard
+    const keys = document.querySelectorAll(".key");
+
+    keys.forEach(function(key) {
+        key.style.backgroundColor = "";
+    });
+
+    // Hide popup
+    document.getElementById("winPopup").classList.remove("show");
+}
+
+
+// PLAY AGAIN BUTTON
+document.getElementById("playAgainButton").addEventListener("click", function() {
+    startNewGame();
+});
+
+
+// X BUTTON
+document.getElementById("closeWinPopup").addEventListener("click", function() {
+    document.getElementById("winPopup").classList.remove("show");
+});
