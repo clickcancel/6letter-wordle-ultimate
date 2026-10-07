@@ -46,9 +46,6 @@ h1 {
 
     font-size: 40px;
     font-weight: bold;
-
-    transform-style: preserve-3d;
-    perspective: 1000px;
 }
 
 .tile.flip {
