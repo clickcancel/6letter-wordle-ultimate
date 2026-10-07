@@ -50,8 +50,26 @@ h1 {
     transform-style: preserve-3d;
 }
 
+.tile {
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 40px;
+    font-weight: bold;
+
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
 .tile.flip {
-    animation: flipTile 0.8s ease-in-out;
+    animation: flipTile 0.6s ease-in-out;
 }
 
 @keyframes flipTile {
