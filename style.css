@@ -36,6 +36,7 @@ h1 {
 .tile {
     width: 70px;
     height: 70px;
+
     border: 2px solid white;
     border-radius: 10px;
     margin: 4px;
@@ -47,42 +48,36 @@ h1 {
     font-size: 40px;
     font-weight: bold;
 
+    /*
+       These make the rotation happen around
+       the center of the tile.
+    */
+    transform-origin: center center;
     transform-style: preserve-3d;
+    backface-visibility: visible;
 }
 
-.tile {
-    width: 70px;
-    height: 70px;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin: 4px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 40px;
-    font-weight: bold;
-
-    transform-style: preserve-3d;
-    perspective: 500px;
-}
-
+/* Vertical flip animation */
 .tile.flip {
-    animation: flipTile 0.6s ease-in-out;
+    animation: verticalFlip 0.6s ease-in-out;
 }
 
-@keyframes flipTile {
+@keyframes verticalFlip {
+
+    /* Normal position */
     0% {
-        transform: rotateX(0deg);
+        transform: perspective(600px) rotateX(0deg);
     }
 
+    /* Tile turns forward until it is edge-on */
     50% {
-        transform: rotateX(90deg);
+        transform: perspective(600px) rotateX(90deg);
     }
 
+    /* Tile completes the flip and returns */
     100% {
-        transform: rotateX(0deg);
+        transform: perspective(600px) rotateX(180deg);
     }
 }
 
@@ -93,9 +88,11 @@ h1 {
 
 #keyboard {
     margin-top: 35px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 8px;
 }
 
@@ -107,10 +104,13 @@ h1 {
 .key {
     width: 45px;
     height: 55px;
+
     border: none;
     border-radius: 6px;
+
     background: #818384;
     color: white;
+
     font-size: 22px;
     font-weight: bold;
 }
@@ -122,14 +122,17 @@ h1 {
 
 #message {
     position: fixed;
+
     top: 140px;
     left: 50%;
+
     transform: translateX(-50%);
 
     background: #333;
     color: white;
 
     padding: 12px 20px;
+
     border-radius: 6px;
 
     font-size: 18px;
@@ -156,6 +159,7 @@ h1 {
     display: none;
 
     position: fixed;
+
     top: 0;
     left: 0;
 
@@ -224,6 +228,7 @@ h1 {
    ========================= */
 
 @keyframes winZoom {
+
     from {
         transform: scale(0.5);
         opacity: 0;
