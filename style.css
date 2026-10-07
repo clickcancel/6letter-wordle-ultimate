@@ -1,32 +1,37 @@
-body{
-    background:#121213;
-    color:white;
-    font-family:Arial, Helvetica, sans-serif;
-    text-align:center;
+body {
+    background: #121213;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
-h1{
-    margin-top:40px;
-    margin:14px;
+h1 {
+    margin-top: 40px;
+    margin: 14px;
 }
 
-.title-box{
-    border:2px solid white;
-    border-radius:15px;
+.title-box {
+    border: 2px solid white;
+    border-radius: 15px;
     background: linear-gradient(to bottom, #000000, #1b4b1b);
-    width:400px;
-    margin:30px auto;
+    width: 400px;
+    margin: 30px auto;
     padding: 0.5px 0;
 }
 
-.board{
-    margin-top:100px;
+.board {
+    margin-top: 100px;
 }
 
-.row{
-    display:flex;
+.row {
+    display: flex;
     justify-content: center;
 }
+
+
+/* =========================
+   GAME TILES
+   ========================= */
 
 .tile {
     width: 70px;
@@ -64,45 +69,58 @@ h1{
     }
 }
 
-#keyboard{
-    margin-top:35px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
+
+/* =========================
+   KEYBOARD
+   ========================= */
+
+#keyboard {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
-.keyboard-row{
-    display:flex;
-    gap:6px;
+.keyboard-row {
+    display: flex;
+    gap: 6px;
 }
 
-.key{
-    width:45px;
-    height:55px;
-    border:none;
-    border-radius:6px;
-    background:#818384;
-    color:white;
-    font-size:22px;
-    font-weight:bold;
+.key {
+    width: 45px;
+    height: 55px;
+    border: none;
+    border-radius: 6px;
+    background: #818384;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
 }
+
+
+/* =========================
+   NOT FOUND MESSAGE
+   ========================= */
 
 #message {
     position: fixed;
     top: 140px;
     left: 50%;
     transform: translateX(-50%);
-    
+
     background: #333;
     color: white;
+
     padding: 12px 20px;
     border-radius: 6px;
+
     font-size: 18px;
     font-weight: bold;
 
     opacity: 0;
     pointer-events: none;
+
     transition: opacity 0.2s ease;
 
     z-index: 1000;
@@ -112,11 +130,18 @@ h1{
     opacity: 1;
 }
 
+
+/* =========================
+   WIN POPUP
+   ========================= */
+
 .win-popup {
     display: none;
+
     position: fixed;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
 
@@ -135,14 +160,29 @@ h1{
 .win-box {
     background: #222;
     color: white;
+
     padding: 35px;
+
     border-radius: 15px;
-    text-align: center;
     border: 2px solid white;
+
+    text-align: center;
+
     min-width: 280px;
-    position: relative; 
-    .close-popup {
+
+    position: relative;
+
+    animation: winZoom 0.4s ease-out;
+}
+
+
+/* =========================
+   CLOSE BUTTON
+   ========================= */
+
+.close-popup {
     position: absolute;
+
     top: 10px;
     right: 12px;
 
@@ -150,6 +190,7 @@ h1{
     border: none;
 
     color: white;
+
     font-size: 28px;
     font-weight: bold;
 
@@ -160,8 +201,10 @@ h1{
     opacity: 0.7;
 }
 
-    animation: winZoom 0.4s ease-out;
-}
+
+/* =========================
+   WIN POPUP ANIMATION
+   ========================= */
 
 @keyframes winZoom {
     from {
@@ -175,6 +218,11 @@ h1{
     }
 }
 
+
+/* =========================
+   WIN POPUP TEXT
+   ========================= */
+
 .win-box h2 {
     margin-top: 0;
     font-size: 32px;
@@ -183,6 +231,11 @@ h1{
 .win-box p {
     font-size: 18px;
 }
+
+
+/* =========================
+   PLAY AGAIN BUTTON
+   ========================= */
 
 #playAgainButton {
     margin-top: 15px;
