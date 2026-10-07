@@ -1,167 +1,239 @@
 console.log("6 Letter Wordle Ultimate started!");
 
-const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
-let answer = WORD_LIST[randomIndex];
+let answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
 let currentTile = 0;
 let currentRow = 0;
 let gameOver = false;
-document.addEventListener("keydown", function(event){
 
-if (gameOver) {
-    if (event.key === "Enter") {
-        startNewGame();
+
+document.addEventListener("keydown", function(event) {
+
+    // If the game is over, only Enter is allowed
+    if (gameOver) {
+
+        if (event.key === "Enter") {
+            startNewGame();
+        }
+
+        return;
     }
-    return;
-}
+
+
+    // TYPE LETTER
     if (event.key.length === 1 && currentTile < 6) {
 
-    const tileNumber = currentRow * 6 + currentTile;
-    const tile = document.getElementById("tile" + tileNumber);
+        const tileNumber = currentRow * 6 + currentTile;
+        const tile = document.getElementById("tile" + tileNumber);
 
-    tile.textContent = event.key.toUpperCase();
+        tile.textContent = event.key.toUpperCase();
 
-    currentTile++;
+        currentTile++;
+    }
 
-}
 
-     if (event.key === "Backspace") {
+    // BACKSPACE
+    if (event.key === "Backspace") {
+
         if (currentTile > 0) {
+
             currentTile--;
+
             const tileNumber = currentRow * 6 + currentTile;
             const tile = document.getElementById("tile" + tileNumber);
+
             tile.textContent = "";
         }
     }
-     if (event.key === "Enter") {
-        if (currentTile === 6) {
 
-    let guess = "";
 
-    for (let i = 0; i < 6; i++) {
-        const tileNumber = currentRow * 6 + i;
-        const tile = document.getElementById("tile" + tileNumber);
-        guess += tile.textContent;
-    }
+    // ENTER
+    if (event.key === "Enter") {
 
-            if (!WORD_LIST.includes(guess)) {
+        // Don't submit until 6 letters are entered
+        if (currentTile !== 6) {
+            return;
+        }
+
+
+        // Build the guess
+        let guess = "";
+
+        for (let i = 0; i < 6; i++) {
+
+            const tileNumber = currentRow * 6 + i;
+            const tile = document.getElementById("tile" + tileNumber);
+
+            guess += tile.textContent;
+        }
+
+
+        // Check if the word is allowed
+        if (!WORD_LIST.includes(guess) && !ALLOWED_WORDS.includes(guess)) {
+
             const message = document.getElementById("message");
 
-             message.textContent = "Not found in word list";
+            message.textContent = "Not found in word list";
             message.classList.add("show");
 
             setTimeout(() => {
-            message.classList.remove("show");
-    }, 1500);
+                message.classList.remove("show");
+            }, 1500);
 
-    return;
-}
-
-    let remaining = answer.split("");
-    let colors = ["", "", "", "", "", ""];
-    let correctLetters = 0;
-
-    // PASS 1 - Find all greens
-    for (let i = 0; i < 6; i++) {
-
-        if (guess[i] === answer[i]) {
-            colors[i] = "green";
-            remaining[i] = null;
-            correctLetters++;
+            return;
         }
 
+
+        // Prepare colors
+        let remaining = answer.split("");
+        let colors = ["", "", "", "", "", ""];
+        let correctLetters = 0;
+
+
+        // PASS 1 — GREEN
+        for (let i = 0; i < 6; i++) {
+
+            if (guess[i] === answer[i]) {
+
+                colors[i] = "green";
+                remaining[i] = null;
+                correctLetters++;
+            }
+        }
+
+
+        // PASS 2 — YELLOW / GRAY
+        for (let i = 0; i < 6; i++) {
+
+            if (colors[i] === "green") {
+                continue;
+            }
+
+            const index = remaining.indexOf(guess[i]);
+
+            if (index !== -1) {
+
+                colors[i] = "yellow";
+                remaining[index] = null;
+
+            } else {
+
+                colors[i] = "gray";
+            }
+        }
+
+
+        // PASS 3 — FLIP + COLOR
+        for (let i = 0; i < 6; i++) {
+
+            const tileNumber = currentRow * 6 + i;
+            const tile = document.getElementById("tile" + tileNumber);
+            const key = document.getElementById("key" + guess[i]);
+
+
+            setTimeout(() => {
+
+              tile.classList.remove("flip");
+              void tile.offsetWidth;
+              tile.classList.add("flip");
+
+
+                setTimeout(() => {
+
+                    // GREEN
+                    if (colors[i] === "green") {
+
+                        tile.style.backgroundColor = "#6aaa64";
+
+                        if (key) {
+                            key.style.backgroundColor = "#6aaa64";
+                        }
+                    }
+
+
+                    // YELLOW
+                    else if (colors[i] === "yellow") {
+
+                        tile.style.backgroundColor = "#c9b458";
+
+                        if (
+                            key &&
+                            key.style.backgroundColor !== "rgb(106, 170, 100)"
+                        ) {
+                            key.style.backgroundColor = "#c9b458";
+                        }
+                    }
+
+
+                    // GRAY
+                    else {
+
+                        tile.style.backgroundColor = "#3a3a3c";
+
+                        if (
+                            key &&
+                            key.style.backgroundColor !== "rgb(106, 170, 100)" &&
+                            key.style.backgroundColor !== "rgb(201, 180, 88)"
+                        ) {
+                            key.style.backgroundColor = "#3a3a3c";
+                        }
+                    }
+
+                }, 250);
+
+            }, i * 300);
+        }
+
+
+        // WIN
+        if (correctLetters === 6) {
+
+            gameOver = true;
+
+            // Wait until the flip animation finishes
+            setTimeout(() => {
+
+                const winPopup = document.getElementById("winPopup");
+
+                winPopup.classList.add("show");
+
+            }, 1800);
+
+            return;
+        }
+
+
+        // MOVE TO NEXT ROW
+        currentRow++;
+        currentTile = 0;
     }
 
-    // PASS 2 - Find yellows and grays
-    for (let i = 0; i < 6; i++) {
+});
 
-        if (colors[i] === "green") {
-            continue;
-        }
 
-        const index = remaining.indexOf(guess[i]);
-
-        if (index !== -1) {
-            colors[i] = "yellow";
-            remaining[index] = null;
-        } else {
-            colors[i] = "gray";
-        }
-
-    }
-
-    // PASS 3 - Color the tiles and keyboard
-for (let i = 0; i < 6; i++) {
-
-    const tileNumber = currentRow * 6 + i;
-    const tile = document.getElementById("tile" + tileNumber);
-    const key = document.getElementById("key" + guess[i]);
-
-    if (colors[i] === "green") {
-
-        tile.style.backgroundColor = "#6aaa64";
-        key.style.backgroundColor = "#6aaa64";
-
-    } else if (colors[i] === "yellow") {
-
-        tile.style.backgroundColor = "#c9b458";
-
-        if (key.style.backgroundColor !== "rgb(106, 170, 100)") {
-            key.style.backgroundColor = "#c9b458";
-        }
-
-} else {
-
-    tile.style.backgroundColor = "#3a3a3c";
-
-        if (
-            key.style.backgroundColor !== "rgb(106, 170, 100)" &&
-            key.style.backgroundColor !== "rgb(201, 180, 88)"
-        ) {
-            key.style.backgroundColor = "#3a3a3c";
-        }
-
-    }   // end gray else
-
-}   // end PASS 3 loop
-
-if (correctLetters === 6) {
-
-    gameOver = true;
-
-    const winPopup = document.getElementById("winPopup");
-    winPopup.classList.add("show");
-
-} else {
-
-    currentRow++;
-    currentTile = 0;
-
-}
-
-}   // end currentTile == 6
-
-}   // end Enter
-
-}); // end document listener
-
+// START NEW GAME
 function startNewGame() {
 
-    // Choose a new answer
-    const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
-    answer = WORD_LIST[randomIndex];
+    // Pick new answer
+    answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
 
-    // Reset game position
+    // Reset game
     currentTile = 0;
     currentRow = 0;
     gameOver = false;
 
-    // Clear all tiles
+
+    // Clear board
     for (let i = 0; i < 36; i++) {
+
         const tile = document.getElementById("tile" + i);
 
         tile.textContent = "";
         tile.style.backgroundColor = "";
+
+        // Remove flip animation class
+        tile.classList.remove("flip");
     }
+
 
     // Reset keyboard
     const keys = document.querySelectorAll(".key");
@@ -170,6 +242,7 @@ function startNewGame() {
         key.style.backgroundColor = "";
     });
 
+
     // Hide popup
     document.getElementById("winPopup").classList.remove("show");
 }
@@ -177,11 +250,15 @@ function startNewGame() {
 
 // PLAY AGAIN BUTTON
 document.getElementById("playAgainButton").addEventListener("click", function() {
+
     startNewGame();
+
 });
 
 
 // X BUTTON
 document.getElementById("closeWinPopup").addEventListener("click", function() {
+
     document.getElementById("winPopup").classList.remove("show");
+
 });
