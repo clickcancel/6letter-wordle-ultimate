@@ -64,20 +64,16 @@ h1 {
 }
 
 @keyframes verticalFlip {
-
-    /* Normal position */
     0% {
         transform: perspective(600px) rotateX(0deg);
     }
 
-    /* Tile turns forward until it is edge-on */
     50% {
         transform: perspective(600px) rotateX(90deg);
     }
 
-    /* Tile completes the flip and returns */
     100% {
-        transform: perspective(600px) rotateX(180deg);
+        transform: perspective(600px) rotateX(0deg);
     }
 }
 
