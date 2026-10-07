@@ -52,20 +52,20 @@ h1 {
 }
 
 .tile.flip {
-    animation: flipTile 0.6s ease-in-out;
+    animation: tileFlip 0.6s ease-in-out;
 }
 
-@keyframes flipTile {
+@keyframes tileFlip {
     0% {
-        transform: rotateX(0deg);
+        transform: rotateY(0deg);
     }
 
     50% {
-        transform: rotateX(90deg);
+        transform: rotateY(180deg);
     }
 
     100% {
-        transform: rotateX(0deg);
+        transform: rotateY(360deg);
     }
 }
 
