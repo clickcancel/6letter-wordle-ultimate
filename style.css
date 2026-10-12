@@ -132,6 +132,7 @@ h1{
     display: flex;
 }
 
+
 .win-box {
     background: #222;
     color: white;
@@ -140,27 +141,24 @@ h1{
     text-align: center;
     border: 2px solid white;
     min-width: 280px;
-    position: relative; 
-    .close-popup {
+    position: relative;
+    animation: winZoom 0.4s ease-out;
+}
+
+.close-popup {
     position: absolute;
     top: 10px;
     right: 12px;
-
     background: none;
     border: none;
-
     color: white;
     font-size: 28px;
     font-weight: bold;
-
     cursor: pointer;
 }
 
 .close-popup:hover {
     opacity: 0.7;
-}
-
-    animation: winZoom 0.4s ease-out;
 }
 
 @keyframes winZoom {
@@ -272,12 +270,4 @@ h1{
         font-size: 26px;
         margin: 3px;
     }
-}
-
-.key {
-    touch-action: manipulation;
-    pointer-events: auto;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
 }
