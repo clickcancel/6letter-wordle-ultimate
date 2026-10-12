@@ -210,6 +210,49 @@ document.addEventListener("keydown", function(event) {
 });
 
 
+/* =========================
+   CLICKABLE ON-SCREEN KEYBOARD
+   Works with phones, tablets, and touchscreens
+   ========================= */
+
+document.querySelectorAll(".key").forEach(function(key) {
+
+    key.addEventListener("click", function() {
+
+        if (gameOver) return;
+
+        const letter = key.textContent.trim().toUpperCase();
+
+        // Ignore input if all 6 letters are entered
+        if (currentTile >= 6) return;
+
+        const tileNumber = currentRow * 6 + currentTile;
+        const tile = document.getElementById("tile" + tileNumber);
+
+        if (tile && /^[A-Z]$/.test(letter)) {
+            tile.textContent = letter;
+            currentTile++;
+        }
+
+    });
+
+});
+ 
+document.getElementById("keyEnter").addEventListener("click", function() {
+    document.dispatchEvent(new KeyboardEvent("keydown", {
+        key: "Enter",
+        bubbles: true
+    }));
+});
+
+document.getElementById("keyBackspace").addEventListener("click", function() {
+    document.dispatchEvent(new KeyboardEvent("keydown", {
+        key: "Backspace",
+        bubbles: true
+    }));
+});
+
+
 // START NEW GAME
 function startNewGame() {
 
