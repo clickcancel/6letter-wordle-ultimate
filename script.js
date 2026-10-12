@@ -1,3 +1,5 @@
+alert("JavaScript is running!");
+
 console.log("6 Letter Wordle Ultimate started!");
 
 let answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
@@ -339,4 +341,3 @@ document.addEventListener("touchstart", function() {
     }
 }, { once: true, passive: true });
 
-alert("JavaScript is running!");
