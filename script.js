@@ -311,3 +311,13 @@ document.getElementById("closeWinPopup").addEventListener("click", function() {
     document.getElementById("winPopup").classList.remove("show");
 
 });
+
+
+/* TEMPORARY MOBILE TOUCH TEST */
+
+document.querySelectorAll(".key").forEach(function(key) {
+    key.addEventListener("pointerdown", function() {
+        key.style.outline = "4px solid red";
+        console.log("Touch detected:", key.id);
+    });
+});
