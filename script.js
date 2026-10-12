@@ -215,43 +215,49 @@ document.addEventListener("keydown", function(event) {
    Works with phones, tablets, and touchscreens
    ========================= */
 
+
+/* CLICKABLE KEYBOARD — mouse, mobile, and touchscreen */
+
 document.querySelectorAll(".key").forEach(function(key) {
 
-    key.addEventListener("click", function() {
+    key.addEventListener("pointerdown", function(event) {
+        event.preventDefault();
 
         if (gameOver) return;
 
-        const letter = key.textContent.trim().toUpperCase();
+        const id = key.id;
 
-        // Ignore input if all 6 letters are entered
-        if (currentTile >= 6) return;
-
-        const tileNumber = currentRow * 6 + currentTile;
-        const tile = document.getElementById("tile" + tileNumber);
-
-        if (tile && /^[A-Z]$/.test(letter)) {
-            tile.textContent = letter;
-            currentTile++;
+        // ENTER
+        if (id === "keyEnter") {
+            document.dispatchEvent(
+                new KeyboardEvent("keydown", { key: "Enter" })
+            );
+            return;
         }
 
+        // BACKSPACE
+        if (id === "keyBackspace") {
+            document.dispatchEvent(
+                new KeyboardEvent("keydown", { key: "Backspace" })
+            );
+            return;
+        }
+
+        // LETTER
+        const letter = key.textContent.trim().toUpperCase();
+
+        if (/^[A-Z]$/.test(letter) && currentTile < 6) {
+            const tileNumber = currentRow * 6 + currentTile;
+            const tile = document.getElementById("tile" + tileNumber);
+
+            if (tile) {
+                tile.textContent = letter;
+                currentTile++;
+            }
+        }
     });
 
 });
- 
-document.getElementById("keyEnter").addEventListener("click", function() {
-    document.dispatchEvent(new KeyboardEvent("keydown", {
-        key: "Enter",
-        bubbles: true
-    }));
-});
-
-document.getElementById("keyBackspace").addEventListener("click", function() {
-    document.dispatchEvent(new KeyboardEvent("keydown", {
-        key: "Backspace",
-        bubbles: true
-    }));
-});
-
 
 // START NEW GAME
 function startNewGame() {
