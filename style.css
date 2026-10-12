@@ -273,3 +273,11 @@ h1{
         margin: 3px;
     }
 }
+
+.key {
+    touch-action: manipulation;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
