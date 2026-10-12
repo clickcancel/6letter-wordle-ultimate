@@ -220,8 +220,7 @@ document.addEventListener("keydown", function(event) {
 
 document.querySelectorAll(".key").forEach(function(key) {
 
-    key.addEventListener("pointerdown", function(event) {
-        event.preventDefault();
+    key.addEventListener("click", function(event) {
 
         if (gameOver) return;
 
