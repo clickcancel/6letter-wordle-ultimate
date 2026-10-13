@@ -1,5 +1,3 @@
-alert("JavaScript is running!");
-
 console.log("6 Letter Wordle Ultimate started!");
 
 let answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
@@ -312,32 +310,3 @@ document.getElementById("closeWinPopup").addEventListener("click", function() {
     document.getElementById("winPopup").classList.remove("show");
 
 });
-
-
-/* TEMPORARY MOBILE TOUCH TEST */
-
-document.querySelectorAll(".key").forEach(function(key) {
-    key.addEventListener("pointerdown", function() {
-        key.style.outline = "4px solid red";
-        console.log("Touch detected:", key.id);
-    });
-});
-
-
-/* TEMPORARY TOUCHSCREEN DIAGNOSTIC */
-
-document.addEventListener("touchstart", function() {
-    let test = document.getElementById("touchTest");
-
-    if (!test) {
-        test = document.createElement("div");
-        test.id = "touchTest";
-        test.textContent = "TOUCH DETECTED!";
-        test.style.cssText =
-            "position:fixed;top:10px;left:10px;z-index:99999;" +
-            "background:lime;color:black;padding:15px;" +
-            "font-size:20px;font-weight:bold;";
-        document.body.appendChild(test);
-    }
-}, { once: true, passive: true });
-
