@@ -27,6 +27,7 @@ const WORD_LIST = [
 "ASTUTE",
 "ASCENT",
 "ACCUSE",
+"ARABLE",
 "ADVERB",
 "ATTIRE",
 "ABLAZE",
@@ -58,7 +59,6 @@ const WORD_LIST = [
 "ASTRAY",
 "ASTRAL",
 "AMBUSH",
-"ARABLE",
 "ACTUAL",
 "ASSUME",
 "ACEDIA",
@@ -1421,7 +1421,6 @@ const WORD_LIST = [
 "PARENT",
 "PEOPLE",
 "PANINI",
-"PATHOS",
 "PASTRY",
 "POLLEN",
 "POLICE",
@@ -1475,6 +1474,7 @@ const WORD_LIST = [
 "PSEUDO",
 "PUBLIC",
 "PLUNGE",
+"PATHOS",
 "PRESET",
 "PACIFY",
 "PICKUP",
@@ -2354,7 +2354,7 @@ const WORD_LIST = [
 "ZIRCON",
 "ZAFTIG",
 "ZENITH"
-];
+]
 
 const ALLOWED_WORDS = [
 "SPARES",
