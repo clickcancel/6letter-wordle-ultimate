@@ -202,11 +202,38 @@ document.addEventListener("keydown", function(event) {
         }
 
 
+       
         // MOVE TO NEXT ROW
         currentRow++;
         currentTile = 0;
+
+        // LOSE after the sixth incorrect guess
+        if (currentRow >= 6) {
+            gameOver = true;
+
+            setTimeout(() => {
+                document.getElementById("answerReveal").textContent = answer;
+                document.getElementById("losePopup").classList.add("show");
+            }, 2000);
+        }
+
     }
 
+});
+
+
+if (currentRow >= 6 && !gameOver) {
+    gameOver = true;
+
+    document.getElementById("answerReveal").textContent = answer;
+
+    document.getElementById("losePopup").classList.add("show");
+}
+
+
+document.getElementById("losePlayAgain").addEventListener("click", () => {
+    document.getElementById("losePopup").classList.remove("show");
+    startNewGame();
 });
 
 
@@ -291,10 +318,14 @@ function startNewGame() {
     });
 
 
-    // Hide popup
-    document.getElementById("winPopup").classList.remove("show");
+    // Hide popups
+document.getElementById("winPopup").classList.remove("show");
+document.getElementById("losePopup").classList.remove("show");
 }
 
+document.getElementById("losePlayAgain").addEventListener("click", function() {
+    startNewGame();
+});
 
 // PLAY AGAIN BUTTON
 document.getElementById("playAgainButton").addEventListener("click", function() {
