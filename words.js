@@ -2353,7 +2353,7 @@
 "ZIRCON",
 "ZAFTIG",
 "ZENITH"
-]
+];
 
 const ALLOWED_WORDS = [
 "SPARES",
