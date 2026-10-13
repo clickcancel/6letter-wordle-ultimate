@@ -1,3 +1,4 @@
+const WORD_LIST = [
 "ARTIST",
 "ARCTIC",
 "ARCHER",
