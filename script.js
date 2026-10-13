@@ -222,14 +222,6 @@ document.addEventListener("keydown", function(event) {
 });
 
 
-if (currentRow >= 6 && !gameOver) {
-    gameOver = true;
-
-    document.getElementById("answerReveal").textContent = answer;
-
-    document.getElementById("losePopup").classList.add("show");
-}
-
 
 document.getElementById("losePlayAgain").addEventListener("click", () => {
     document.getElementById("losePopup").classList.remove("show");
@@ -334,10 +326,18 @@ document.getElementById("playAgainButton").addEventListener("click", function() 
 
 });
 
+const giveUpButton = document.getElementById("giveUpButton");
 
-// X BUTTON
-document.getElementById("closeWinPopup").addEventListener("click", function() {
+if (!giveUpButton) {
+    console.error("Give Up button not found in HTML!");
+} else {
+    giveUpButton.addEventListener("click", function() {
+        console.log("Give Up clicked!");
 
-    document.getElementById("winPopup").classList.remove("show");
+        if (gameOver) return;
 
-});
+        gameOver = true;
+        document.getElementById("answerReveal").textContent = answer;
+        document.getElementById("losePopup").classList.add("show");
+    });
+}
